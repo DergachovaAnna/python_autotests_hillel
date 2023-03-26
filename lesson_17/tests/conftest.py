@@ -13,10 +13,10 @@ def create_human_with_invalid_age():
 
 
 @pytest.fixture(params=[('Ann', 1, "female"), ('Bob', 99, "male")])
-def human_data(request):
+def set_human_data(request):
     return request.param
 
 
 @pytest.fixture(params=[('Ann', 1, "female"), ('Bob', 98, "male")])
-def human_age_boundary_values(request):
+def set_human_age_boundary_values(request):
     return request.param

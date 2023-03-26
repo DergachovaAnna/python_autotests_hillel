@@ -3,8 +3,8 @@ from lesson_17.Human.human import Human
 
 
 @pytest.mark.positive
-def test_create_human(human_data):
-    name, age, gender = human_data
+def test_create_human(set_human_data):
+    name, age, gender = set_human_data
     human = Human(name, age, gender)
     assert hasattr(human, '_Human__status')
     assert hasattr(human, '_Human__age_limit')
@@ -27,8 +27,8 @@ def test_change_to_existed_gender(create_human_with_valid_age):
 
 
 @pytest.mark.positive
-def test_grow_human_below_limit(human_age_boundary_values):
-    name, age, gender = human_age_boundary_values
+def test_grow_human_below_limit(set_human_age_boundary_values):
+    name, age, gender = set_human_age_boundary_values
     human = Human(name, age, gender)
     initial_age = human.age
     human.grow()
