@@ -1,5 +1,3 @@
-import time
-
 from lesson_19.page_objects.main_page_pack.main_page_locators import MainPageLocators
 from lesson_19.page_objects.players_page_pack.players_page import PlayersPage
 from lesson_19.utilities.web_ui.base_page import BasePage

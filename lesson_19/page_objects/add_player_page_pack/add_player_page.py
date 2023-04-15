@@ -1,11 +1,9 @@
-import time
 from datetime import datetime
 from lesson_19.page_objects.add_player_page_pack.add_player_locators import AddPlayerPageLocators
 from lesson_19.page_objects.matches_page_pack.matches_page import MatchesPage
 from lesson_19.utilities.web_ui.base_page import BasePage
 from faker import Faker
 import random
-from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.keys import Keys
 
 

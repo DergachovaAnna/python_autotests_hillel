@@ -30,13 +30,6 @@ class LoginPage(BasePage):
     def click_language_list(self):
         self.click(self.__page_locator.language_list)
 
-    def select_english(self):
-        self.click(self.__page_locator.language_english)
-
-    def select_polish(self):
-        self.click(self.__page_locator.language_polish)
-        return self
-
     def change_language(self, language):
         language_locator = {
             'en': self.__page_locator.language_english,

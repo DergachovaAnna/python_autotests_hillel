@@ -1,4 +1,3 @@
-from lesson_19.utilities.config_reader import get_site_url
 import pytest
 
 
