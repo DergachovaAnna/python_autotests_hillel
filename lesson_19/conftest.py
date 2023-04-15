@@ -13,7 +13,7 @@ def create_browser():
     driver.maximize_window()
     driver.get(get_site_url()[0])
     yield driver
-    driver.quit()\
+    driver.quit()
 
 @pytest.fixture()
 def open_login_page(create_browser):
@@ -35,8 +35,3 @@ def login_with_invalid_pass(open_login_page):
 def open_add_player_page(open_main_page):
     open_main_page.click_add_player_button()
     return AddPlayerPage(open_main_page.driver)
-
-
-
-
-

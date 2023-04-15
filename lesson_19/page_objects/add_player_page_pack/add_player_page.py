@@ -1,9 +1,12 @@
+import time
 from datetime import datetime
 from lesson_19.page_objects.add_player_page_pack.add_player_locators import AddPlayerPageLocators
 from lesson_19.page_objects.matches_page_pack.matches_page import MatchesPage
 from lesson_19.utilities.web_ui.base_page import BasePage
 from faker import Faker
 import random
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.webdriver.common.keys import Keys
 
 
 class AddPlayerPage(BasePage):
@@ -17,27 +20,27 @@ class AddPlayerPage(BasePage):
     def player_name(self):
         return self.__player_name
 
-    def send_email(self):
+    def set_email(self):
         email = self.__faker_data.email()
         self.send_keys(locator=self.__page_locator.email_input, value=email)
         return self
 
-    def send_name(self):
+    def set_name(self):
         self.send_keys(locator=self.__page_locator.name_input, value=self.__player_name)
         return self
 
-    def send_surname(self):
+    def set_surname(self):
         surname = self.__faker_data.last_name()
         self.send_keys(locator=self.__page_locator.surname_input, value=surname)
         return self
 
-    def send_age(self):
+    def set_age(self):
         dob = self.__faker_data.date_of_birth()
         formatted_dob = datetime.strftime(dob, '%d-%m-%Y')
         self.send_keys(locator=self.__page_locator.age_select, value=formatted_dob)
         return self
 
-    def send_main_position(self):
+    def set_main_position(self):
         positions = ['Goalkeeper', 'Defender', 'Midfielder', 'Forward']
         self.send_keys(locator=self.__page_locator.main_position_input, value=random.choice(positions))
         return self
@@ -47,7 +50,7 @@ class AddPlayerPage(BasePage):
         return self
 
     def add_player_with_required_fields(self):
-        self.send_email().send_name().send_surname().send_main_position().send_age().click_submit_button()
+        self.set_email().set_name().set_surname().set_main_position().set_age().click_submit_button()
         return self
 
     def is_required_fields_empty(self):
@@ -67,29 +70,31 @@ class AddPlayerPage(BasePage):
             return False
 
     def wait_for_add_player_confirmation_popup(self):
-        self.wait_until_element_located(locator=self.__page_locator.player_added_sucess_popup)
-        element = self.find_element(*self.__page_locator.player_added_sucess_popup)
-        if element is not None:
-            return element.text
-        else:
+        element_text = self.get_text(self.__page_locator.player_added_sucess_popup)
+        if element_text is None:
             return None
+        else:
+            return element_text
 
     def add_player_without_age(self):
-        self.send_email().send_name().send_surname().send_main_position()
+        self.set_email().set_name().set_surname().set_main_position()
         self.click_submit_button().wait_for_add_player_confirmation_popup()
         return self
 
-    def validate_email(self):
-        email_list = ['abc@', '@gmail.com', 'abc', 'abc@gmail', 'abd@gmail.']
+    def set_invalid_email_format(self, email_data):
+        email_input = self.find_element(*self.__page_locator.email_input)
+        for letter in range(len(email_data)):  # clear the field multiple times
+            email_input.send_keys(Keys.BACKSPACE)
+        email_input.send_keys(email_data)
+        return self
+
+    def validate_email(self, email_list):
         for email_data in email_list:
-            self.send_keys(self.__page_locator.email_input, email_data)
-            self.send_name().send_surname().send_age().send_main_position().click_submit_button()
-            self.clear_fields_js(self.__page_locator.email_input)
+            self.set_name().set_surname().set_age().set_main_position()
+            self.set_invalid_email_format(email_data)
+            self.click_submit_button()
         return self
 
     def click_matches_button(self):
         self.click(self.__page_locator.matches_button)
         return MatchesPage(self.driver)
-
-
-

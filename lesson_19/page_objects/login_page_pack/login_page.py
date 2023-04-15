@@ -8,11 +8,11 @@ class LoginPage(BasePage):
         super().__init__(driver)
         self.__page_locator = LoginPageLocators()
 
-    def send_login_email(self, email: str):
+    def set_login_email(self, email: str):
         self.send_keys(locator=self.__page_locator.login_input, value=email)
         return self
 
-    def send_login_password(self, password: str):
+    def set_login_password(self, password: str):
         self.send_keys(locator=self.__page_locator.password_input, value=password)
         return self
 
@@ -21,8 +21,8 @@ class LoginPage(BasePage):
         return MainPage(self.driver)
 
     def login(self, email, password):
-        self.send_login_email(email)
-        self.send_login_password(password)
+        self.set_login_email(email)
+        self.set_login_password(password)
         self.click_login_button()
         return self
         # MainPage(self.driver)
@@ -50,7 +50,7 @@ class LoginPage(BasePage):
         self.click(self.__page_locator.remind_password_button)
         return self
 
-    def send_email_remind_pass(self, email: str):
+    def set_email_remind_pass(self, email: str):
         self.send_keys(locator=self.__page_locator.remind_pass_email_input, value=email)
         return self
 
@@ -67,12 +67,11 @@ class LoginPage(BasePage):
         return self
 
     def wait_for_remind_pass_confirmation_popup(self):
-        self.wait_until_element_located(locator=self.__page_locator.remind_pass_confirmation_popup)
-        element = self.find_element(*self.__page_locator.remind_pass_confirmation_popup)
-        if element is not None:
-            return element.text
-        else:
+        element_text = self.get_text(self.__page_locator.remind_pass_confirmation_popup)
+        if element_text is None:
             return None
+        else:
+            return element_text
 
     def get_password_error_message(self):
         return self.get_text(self.__page_locator.password_error_message)

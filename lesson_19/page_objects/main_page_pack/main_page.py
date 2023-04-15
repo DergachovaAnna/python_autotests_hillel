@@ -27,11 +27,9 @@ class MainPage(BasePage):
         ]
         found_elements = []
         for element in elements_to_check:
-            self.wait_until_element_located(element)
             try:
-                x = self.driver.find_element(by=element[0], value=element[1])
-                found_elements.append(x)
-
+                element = self.wait_until_element_located(element)
+                found_elements.append(element)
             except NoSuchElementException:
                 pass
         return found_elements

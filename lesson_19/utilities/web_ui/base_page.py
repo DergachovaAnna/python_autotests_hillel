@@ -11,7 +11,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-
 class BasePage:
     def __init__(self, driver: WebDriver):
         self.driver = driver
@@ -51,10 +50,13 @@ class BasePage:
             element.clear()
         element.send_keys(value)
 
+    def send_keys_js(self, locator, value):
+        element = self.wait_until_element_located(locator)
+        self.driver.execute_script("arguments[0].value = arguments[1];", element, value)
+
     def clear_fields_js(self, locator):
         element = self.wait_until_element_located(locator)
         self.driver.execute_script("arguments[0].value = '';", element)
-
 
     def get_text(self, locator):
         element = self.wait_until_element_located(locator)
@@ -118,5 +120,3 @@ class BasePage:
 
         # Perform the actions
         actions.perform()
-
-
