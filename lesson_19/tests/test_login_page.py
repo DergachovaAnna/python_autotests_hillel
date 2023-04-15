@@ -14,7 +14,8 @@ def test_successful_login(open_main_page):
 def test_fail_login_to_system(login_with_invalid_pass):
     expected_text = 'Identifier or password invalid.'
     assert expected_text in login_with_invalid_pass.get_password_error_message(), "Validation error not appear"  # check validation message
-    assert login_with_invalid_pass.driver.current_url == get_site_url(), "User was logged in"  # check that I stay on login page
+    current_url = login_with_invalid_pass.driver.current_url
+    assert current_url.endswith("/login"), f'User was logged in and URL is {current_url}'  # check that I stay on login page
 
 
 @pytest.mark.regression

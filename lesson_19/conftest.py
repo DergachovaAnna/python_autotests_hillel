@@ -15,6 +15,7 @@ def create_browser():
     yield driver
     driver.quit()
 
+
 @pytest.fixture()
 def open_login_page(create_browser):
     return LoginPage(create_browser)
