@@ -1,17 +1,20 @@
 import pytest
 import json
-
 from lesson_19.constants import PATH_TO_PROJECT
 from lesson_19.page_objects.add_player_page_pack.add_player_page import AddPlayerPage
 from lesson_19.utilities.configurations import Configuration
-from utilities.driver_factory import driver_factory
+from lesson_19.utilities.driver_factory import driver_factory
 from lesson_19.page_objects.login_page_pack.login_page import LoginPage
 from lesson_19.page_objects.main_page_pack.main_page import MainPage
 
 
+def pytest_addoption(parser):
+    parser.addoption('--browser_id', action='store', default=1, help='Set browser id')
+
+
 @pytest.fixture()
-def create_browser(env):
-    driver = driver_factory(int(env.browser_id))
+def create_browser(env, pytestconfig):
+    driver = driver_factory(int(pytestconfig.getoption('--browser_id')))
     driver.maximize_window()
     driver.get(env.site_url_en)
     yield driver
