@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<human>
+	<name>test_default</name>
+	<age>29</age>
+	<gender>f</gender>
+	<birth_year>1993</birth_year>
+</human>
