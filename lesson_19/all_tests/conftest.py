@@ -3,11 +3,11 @@ import json
 from lesson_19.constants import PATH_TO_PROJECT
 from lesson_19.project_api.api_collection.pet_api import PetApi
 from lesson_19.project_api.api_collection.store_api import StoreApi
-from lesson_19.project_ui.page_objects.add_player_page_pack.add_player_page import AddPlayerPage
+# from lesson_19.project_ui.page_objects.add_player_page_pack.add_player_page import AddPlayerPage
 from lesson_19.utilities.configurations import Configuration
 from lesson_19.utilities.driver_factory import driver_factory
-from lesson_19.project_ui.page_objects.login_page_pack.login_page import LoginPage
-from lesson_19.project_ui.page_objects.main_page_pack.main_page import MainPage
+# from lesson_19.project_ui.page_objects.login_page_pack.login_page import LoginPage
+# from lesson_19.project_ui.page_objects.main_page_pack.main_page import MainPage
 
 
 def pytest_addoption(parser):
@@ -23,15 +23,15 @@ def create_browser(env, pytestconfig):
     driver.quit()
 
 
-@pytest.fixture()
-def open_login_page(create_browser):
-    return LoginPage(create_browser)
+# @pytest.fixture()
+# def open_login_page(create_browser):
+#     return LoginPage(create_browser)
 
 
-@pytest.fixture()
-def open_main_page(open_login_page, env):
-    open_login_page.login(email=env.email, password=env.password)
-    return MainPage(open_login_page.driver)
+# @pytest.fixture()
+# def open_main_page(open_login_page, env):
+#     open_login_page.login(email=env.email, password=env.password)
+#     return MainPage(open_login_page.driver)
 
 
 @pytest.fixture()
@@ -39,10 +39,10 @@ def login_with_invalid_pass(open_login_page, env):
     return open_login_page.login(env.password, 'test')
 
 
-@pytest.fixture()
-def open_add_player_page(open_main_page):
-    open_main_page.click_add_player_button()
-    return AddPlayerPage(open_main_page.driver)
+# @pytest.fixture()
+# def open_add_player_page(open_main_page):
+#     open_main_page.click_add_player_button()
+#     return AddPlayerPage(open_main_page.driver)
 
 
 @pytest.fixture(scope='session', autouse=True)
