@@ -3,5 +3,6 @@
     "site_url_pl": "https://scouts-test.futbolkolektyw.pl/pl/login",
     "email": "user01@getnada.com",
     "password": "Test-1234",
-    "browser_id": 1
+    "browser_id": 1,
+    "base_api_url": "https://petstore.swagger.io/v2"
 }
