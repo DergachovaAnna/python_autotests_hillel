@@ -36,10 +36,10 @@ def test_get_pet_by_id(set_up_pet):
     created_pet_json_data = json.loads(created_pet.text)
 
     # search  by created pet ID
-    response = set_up_pet.get_pet_by_id(created_pet_json_data["pet_id"])
+    response = set_up_pet.get_pet_by_id(created_pet_json_data["id"])
     json_data_response = json.loads(response.text)
     assert response.status_code == 200, 'Pet not found'
-    assert json_data_response["id"] == created_pet_json_data["pet_id"], 'Created and searched pet id are not match'
+    assert json_data_response["id"] == created_pet_json_data["id"], 'Created and searched pet id are not match'
     assert json_data_response["name"] == created_pet_json_data["name"], 'Created and searched pet name are not match'
 
 
