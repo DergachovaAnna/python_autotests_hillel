@@ -1,10 +1,12 @@
 from lesson_19.page_objects.main_page_pack.main_page_locators import MainPageLocators
 from lesson_19.page_objects.players_page_pack.players_page import PlayersPage
+from lesson_19.utilities.decorators import allure_step
 from lesson_19.utilities.web_ui.base_page import BasePage
 from selenium.common.exceptions import NoSuchElementException
 from lesson_19.page_objects.add_player_page_pack.add_player_page import AddPlayerPage
 
 
+@allure_step
 class MainPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)

@@ -1,4 +1,5 @@
 import requests
+import allure
 
 
 class BaseApi:

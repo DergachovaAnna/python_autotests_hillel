@@ -11,7 +11,7 @@ def test_sign_out(open_main_page):
 
 @pytest.mark.smoke
 def test_find_elements(open_main_page):  # to verify that desired elements are on the page
-    assert len(open_main_page.find_elements_on_page()) == 5, "Some elements are missing on the main page"
+    assert len(open_main_page.find_elements_on_page()) == 6, "Some elements are missing on the main page"
 
 
 @pytest.mark.regression

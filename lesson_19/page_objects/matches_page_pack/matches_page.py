@@ -1,10 +1,12 @@
 from lesson_19.page_objects.matches_page_pack.matches_page_locators import MatchesPageLocators
+from lesson_19.utilities.decorators import allure_step
 from lesson_19.utilities.web_ui.base_page import BasePage
 from faker import Faker
 import random
 from datetime import datetime
 
 
+@allure_step
 class MatchesPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)

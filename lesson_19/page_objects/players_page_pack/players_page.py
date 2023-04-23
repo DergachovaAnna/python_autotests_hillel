@@ -1,10 +1,12 @@
 from lesson_19.page_objects.add_player_page_pack.add_player_page import AddPlayerPage
 from lesson_19.page_objects.players_page_pack.players_page_locators import PlayersPageLocators
+from lesson_19.utilities.decorators import allure_step
 from lesson_19.utilities.web_ui.base_page import BasePage
 import os
 from pathlib import Path
 
 
+@allure_step
 class PlayersPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)

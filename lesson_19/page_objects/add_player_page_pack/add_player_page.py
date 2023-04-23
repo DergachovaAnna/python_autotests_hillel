@@ -1,12 +1,14 @@
 from datetime import datetime
 from lesson_19.page_objects.add_player_page_pack.add_player_locators import AddPlayerPageLocators
 from lesson_19.page_objects.matches_page_pack.matches_page import MatchesPage
+from lesson_19.utilities.decorators import allure_step
 from lesson_19.utilities.web_ui.base_page import BasePage
 from faker import Faker
 import random
 from selenium.webdriver.common.keys import Keys
 
 
+@allure_step
 class AddPlayerPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)

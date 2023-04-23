@@ -1,7 +1,8 @@
 import random
 import json
+import pytest
 
-
+@pytest.mark.smoke_api
 def test_add_new_pet(set_up_pet):
     pet_data = {"pet_id": random.randint(1, 100000000), "name": "test_pet"}
     response = set_up_pet.add_new_pet(**pet_data)

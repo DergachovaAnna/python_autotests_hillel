@@ -2,7 +2,10 @@ import random
 import json
 from datetime import datetime
 
+from lesson_19.utilities.decorators import allure_step
 
+
+@allure_step
 class Store:
     def __init__(self, **kwargs):
         self.__store_id = random.randint(1, 10000)

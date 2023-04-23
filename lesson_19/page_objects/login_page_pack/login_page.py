@@ -1,8 +1,11 @@
 from lesson_19.page_objects.login_page_pack.login_page_locators import LoginPageLocators
 from lesson_19.page_objects.main_page_pack.main_page import MainPage
+from lesson_19.utilities.decorators import allure_step
 from lesson_19.utilities.web_ui.base_page import BasePage
 
 
+
+@allure_step
 class LoginPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)

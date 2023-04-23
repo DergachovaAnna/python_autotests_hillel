@@ -1,3 +1,5 @@
+from contextlib import suppress
+import allure
 import pytest
 import json
 from lesson_19.constants import PATH_TO_PROJECT
@@ -14,13 +16,35 @@ def pytest_addoption(parser):
     parser.addoption('--browser_id', action='store', default=1, help='Set browser id')
 
 
+@pytest.fixture(scope='session', autouse=True)
+def env():
+    with open(f'{PATH_TO_PROJECT}/configurations/config.json', 'r') as file:
+        result = file.read()
+    config = json.loads(result)
+    return Configuration(**config)
+
+
 @pytest.fixture()
-def create_browser(env, pytestconfig):
+def create_browser(env, pytestconfig, request):
     driver = driver_factory(int(pytestconfig.getoption('--browser_id')))
     driver.maximize_window()
     driver.get(env.site_url_en)
+
     yield driver
+    if request.node.rep_call.failed:
+        with suppress(Exception):
+            allure.attach(driver.get_screenshot_as_png(),
+                          name=request.function.__name__,
+                          attachment_type=allure.attachment_type.PNG)
     driver.quit()
+
+
+@pytest.hookimpl(hookwrapper=True, tryfirst=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    rep = outcome.get_result()
+    setattr(item, "rep_" + rep.when, rep)
+    return rep
 
 
 @pytest.fixture()
@@ -43,14 +67,6 @@ def login_with_invalid_pass(open_login_page, env):
 def open_add_player_page(open_main_page):
     open_main_page.click_add_player_button()
     return AddPlayerPage(open_main_page.driver)
-
-
-@pytest.fixture(scope='session', autouse=True)
-def env():
-    with open(f'{PATH_TO_PROJECT}/configurations/config.json', 'r') as file:
-        result = file.read()
-    config = json.loads(result)
-    return Configuration(**config)
 
 
 @pytest.fixture()

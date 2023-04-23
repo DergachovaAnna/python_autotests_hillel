@@ -1,6 +1,3 @@
-import time
-from selenium.webdriver.common.keys import Keys
-
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -9,8 +6,10 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+from lesson_19.utilities.decorators import allure_step
 
 
+@allure_step
 class BasePage:
     def __init__(self, driver: WebDriver):
         self.driver = driver
