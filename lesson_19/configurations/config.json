@@ -4,5 +4,10 @@
     "email": "user01@getnada.com",
     "password": "Test-1234",
     "browser_id": 1,
-    "base_api_url": "https://petstore.swagger.io/v2"
+    "base_api_url": "https://petstore.swagger.io/v2",
+    "db_user": "ann",
+    "db_password": "12345",
+    "host": "127.0.0.1",
+    "port": "5432",
+    "db_name": "store"
 }
