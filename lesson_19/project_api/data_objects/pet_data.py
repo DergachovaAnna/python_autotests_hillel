@@ -1,7 +1,9 @@
 import random
 import json
+from lesson_19.utilities.decorators import allure_step
 
 
+@allure_step
 class Pet:
     def __init__(self, pet_id: int, name: str, photo_url=None, tags_id=None, tags_name=None, status=None):
         self.__pet_id = pet_id

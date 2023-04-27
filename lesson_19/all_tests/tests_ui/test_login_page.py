@@ -1,6 +1,9 @@
 import pytest
+import allure
 
 
+@allure.issue('https://google.com/')
+@allure.description('Test to verify successful login')
 @pytest.mark.smoke
 @pytest.mark.regression
 def test_successful_login(open_main_page):
@@ -17,6 +20,9 @@ def test_fail_login_to_system(login_with_invalid_pass):
     assert current_url.endswith("/login"), f'User was logged in and URL is {current_url}'  # check that I stay on login page
 
 
+@pytest.mark.smoke
+@allure.issue('https://google.com/')
+@allure.description('Test to verify remind password feature')
 @pytest.mark.regression
 def test_remind_password(open_login_page):
     text = (open_login_page.click_remind_password()

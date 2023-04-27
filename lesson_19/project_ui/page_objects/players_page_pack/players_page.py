@@ -16,7 +16,7 @@ class PlayersPage(BasePage):
         home_dir = str(Path.home())
         downloads_folder_path = os.path.join(home_dir, "Downloads")
         os.chdir(downloads_folder_path)
-        files = os.listdir('')
+        files = os.listdir()
         for file in files:
             if file.endswith('.csv'):
                 return file
