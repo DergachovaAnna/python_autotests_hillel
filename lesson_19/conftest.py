@@ -1,5 +1,6 @@
 from contextlib import suppress
 import allure
+import psycopg2
 import pytest
 import json
 from lesson_19.constants import PATH_TO_PROJECT
@@ -77,3 +78,17 @@ def set_up_pet(env):
 @pytest.fixture()
 def set_up_store(env):
     return StoreApi(env)
+
+
+@pytest.fixture()
+def create_db_connection(env):
+    connection = psycopg2.connect(user=env.db_user,
+                                  password=env.db_password,
+                                  host=env.host,
+                                  port=env.port,
+                                  database=env.db_name)
+    cursor = connection.cursor()
+    yield connection, cursor
+    if cursor:
+        connection.close()
+        cursor.close()
