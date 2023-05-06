@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 
 
 @pytest.mark.regression
+@pytest.mark.ci
 def test_add_player_with_required_fields(open_add_player_page):
     assert open_add_player_page.is_required_fields_empty(), "Required fields are not empty before sending data"
     text = open_add_player_page.add_player_with_required_fields().wait_for_add_player_confirmation_popup()
@@ -12,6 +13,7 @@ def test_add_player_with_required_fields(open_add_player_page):
 
 
 @pytest.mark.regression
+@pytest.mark.ci
 def test_add_player_without_age(open_add_player_page):
     try:
         open_add_player_page.add_player_without_age()
@@ -19,7 +21,7 @@ def test_add_player_without_age(open_add_player_page):
     except TimeoutException:
         assert True
 
-
+@pytest.mark.ci
 def test_create_record_with_invalid_email(open_add_player_page):
     page = open_add_player_page
     email_list = ['abc', 'abc@', 'abc@gmail', 'abc@gmail.', 'abc@@gmail.com']

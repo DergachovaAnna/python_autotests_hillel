@@ -2,7 +2,10 @@ import random
 import json
 import pytest
 
+
+
 @pytest.mark.smoke_api
+@pytest.mark.ci
 def test_add_new_pet(set_up_pet):
     pet_data = {"pet_id": random.randint(1, 100000000), "name": "test_pet"}
     response = set_up_pet.add_new_pet(**pet_data)
@@ -18,7 +21,7 @@ def test_add_new_pet_without_required_fields(set_up_pet):
     response = set_up_pet.add_new_pet(**pet_data)
     assert response.status_code == 400, 'Pet was created without "name" and "id"'
 
-
+@pytest.mark.ci
 def test_update_pet(set_up_pet):
     set_up_pet.add_new_pet(**{"pet_id": random.randint(1, 100000000), "name": "Pet1"})
     new_pet_data = {"pet_id": 19933991, "name": "Pet2", "status": "unknown_status"}
@@ -30,7 +33,7 @@ def test_update_pet(set_up_pet):
     assert response_data['name'] == new_pet_data["name"], 'Failed to update the name of the pet'
     assert response_data['status'] == new_pet_data["status"], 'Failed to update the name of the pet'
 
-
+@pytest.mark.ci
 def test_get_pet_by_id(set_up_pet):
     # create pet
     created_pet = set_up_pet.add_new_pet(**{"pet_id": random.randint(1, 100000000), "name": "Pet3"})
@@ -43,7 +46,7 @@ def test_get_pet_by_id(set_up_pet):
     assert json_data_response["id"] == created_pet_json_data["id"], 'Created and searched pet id are not match'
     assert json_data_response["name"] == created_pet_json_data["name"], 'Created and searched pet name are not match'
 
-
+@pytest.mark.ci
 def test_delete_pet(set_up_pet):
     # crete pet first
     created_pet = set_up_pet.add_new_pet(**{"pet_id": random.randint(1, 100000000), "name": "Pet3"})
