@@ -13,7 +13,7 @@ from lesson_19.utilities.decorators import allure_step
 class BasePage:
     def __init__(self, driver: WebDriver):
         self.driver = driver
-        self.__wait = WebDriverWait(self.driver, 40)
+        self.__wait = WebDriverWait(self.driver, 60)
 
     def wait_until_element_located(self, locator):
         return self.__wait.until(EC.visibility_of_element_located(locator))
