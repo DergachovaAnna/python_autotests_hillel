@@ -5,7 +5,6 @@ from selenium.webdriver.common.by import By
 
 
 @pytest.mark.regression
-@pytest.mark.ci
 def test_add_player_with_required_fields(open_add_player_page):
     assert open_add_player_page.is_required_fields_empty(), "Required fields are not empty before sending data"
     text = open_add_player_page.add_player_with_required_fields().wait_for_add_player_confirmation_popup()
